@@ -29,7 +29,10 @@ const InsideView = ({ state, update }) => {
           </thead>
           <tbody>
             {state?.ast?.map((item) => (
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <tr
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                key
+              >
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {item.nodeType}
                 </td>
@@ -65,7 +68,10 @@ const InsideView = ({ state, update }) => {
             </thead>
             <tbody>
               {state?.stack?.map((item) => (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  key
+                >
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {item.Name}
                   </td>
@@ -87,7 +93,10 @@ const InsideView = ({ state, update }) => {
             </thead>
             <tbody>
               {state?.heap?.map((item) => (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  ket
+                >
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {item.Address}
                   </td>
@@ -118,7 +127,10 @@ const InsideView = ({ state, update }) => {
             </thead>
             <tbody>
               {state?.endStack?.map((item) => (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  key
+                >
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {item.Name}
                   </td>
@@ -140,7 +152,10 @@ const InsideView = ({ state, update }) => {
             </thead>
             <tbody>
               {state?.endHeap?.map((item) => (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  key
+                >
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {item.Address}
                   </td>
