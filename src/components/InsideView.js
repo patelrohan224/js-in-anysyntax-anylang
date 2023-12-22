@@ -126,10 +126,10 @@ const InsideView = ({ state, update }) => {
               </tr>
             </thead>
             <tbody>
-              {state?.endStack?.map((item) => (
+              {state?.endStack?.map((item, key) => (
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                  key
+                  key={key}
                 >
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {item.Name}
