@@ -1,13 +1,11 @@
 "use client";
 
 import Editor from "@monaco-editor/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InterpretJs from "../../js-engine/interpretor/main";
 import { Memory } from "../../js-engine/core/memory";
 
 const EditorCode = ({ update, state }) => {
-  const [render, setrender] = useState(false);
-
   const { config } = state;
 
   const defaultCode = `
@@ -34,10 +32,6 @@ ${config["print"]}(arr)
 ${config["print"]}(name)
 }
 `;
-
-  useEffect(() => {
-    setrender(!render);
-  }, [state.modal]);
 
   const [text, settext] = useState(defaultCode);
   const saveItems = (val) => {
