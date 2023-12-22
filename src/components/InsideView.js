@@ -28,10 +28,10 @@ const InsideView = ({ state, update }) => {
             </tr>
           </thead>
           <tbody>
-            {state?.ast?.map((item) => (
+            {state?.ast?.map((item, key) => (
               <tr
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                key
+                key={key}
               >
                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   {item.nodeType}
@@ -67,10 +67,10 @@ const InsideView = ({ state, update }) => {
               </tr>
             </thead>
             <tbody>
-              {state?.stack?.map((item) => (
+              {state?.stack?.map((item, key) => (
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                  key
+                  key={key}
                 >
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {item.Name}
@@ -92,10 +92,10 @@ const InsideView = ({ state, update }) => {
               </tr>
             </thead>
             <tbody>
-              {state?.heap?.map((item) => (
+              {state?.heap?.map((item, key) => (
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                  ket
+                  key={key}
                 >
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {item.Address}
@@ -151,10 +151,10 @@ const InsideView = ({ state, update }) => {
               </tr>
             </thead>
             <tbody>
-              {state?.endHeap?.map((item) => (
+              {state?.endHeap?.map((item, key) => (
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                  key
+                  key={key}
                 >
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {item.Address}
