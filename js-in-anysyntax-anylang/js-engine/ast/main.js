@@ -1,3 +1,4 @@
+"use client";
 import { Memory } from "../core/memory.js";
 import {
   parseVariableDeclaration,
@@ -6,7 +7,7 @@ import {
   parseFunctionCall,
 } from "./handlers.js";
 
-function createAst(tokens) {
+function createAst(tokens, config) {
   //Step 1: init AST
   let ast = []; //array of nodes
 
@@ -23,9 +24,9 @@ function createAst(tokens) {
 
     switch (token) {
       //figuring out variables in our tokens
-      case "let":
-      case "const":
-      case "var":
+      case config["let"]:
+      case config["const"]:
+      case config["var"]:
         //handle Variables here
 
         let { variableNode, newindex } = parseVariableDeclaration(
@@ -37,15 +38,14 @@ function createAst(tokens) {
         ast.push(variableNode);
 
         //1st phase memory
-        Memory.write(variableNode.metaData);
+        Memory.write(variableNode.metaData, "", config);
 
         //2nd phase: Memory will have assignments
 
         i = newindex - 1;
         break;
 
-      case "bolbhai":
-      case "print":
+      case config["print"]:
         const { node: nodePrint, newIndex: newIndexPrint } =
           parsePrintStatement(i, tokens);
         ast.push(nodePrint);
@@ -53,7 +53,7 @@ function createAst(tokens) {
 
         break;
 
-      case "function":
+      case config["function"]:
         let { node: nodeFunc, newIndex: newIndexFunc } =
           parseFunctionExpression(tokens, i);
 
@@ -64,7 +64,7 @@ function createAst(tokens) {
         let functionBodyTokens = nodeFunc.metaData.body;
 
         //if we feed tokens to it, it will output AST
-        let functionBodyNode = createAst(functionBodyTokens);
+        let functionBodyNode = createAst(functionBodyTokens, config);
 
         //designed for memory
         let functionNode = {
@@ -73,16 +73,11 @@ function createAst(tokens) {
           type: "function",
         };
 
-        Memory.write(functionNode);
+        Memory.write(functionNode, "", config);
 
         i = newIndexFunc;
 
       default:
-        //handle unknown tokens
-        //check for a function call
-
-        // 'showValues', '(',    ')'
-
         if (tokens[i + 1] === "(" && tokens[i + 2] === ")") {
           let { node: nodeFuncCall, newIndex: newIndexFuncCall } =
             parseFunctionCall(tokens, i);

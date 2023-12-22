@@ -1,7 +1,6 @@
 import { findTokenDataType, findTokenValue } from "./tokens-find.js";
 import { isAllDigits } from "./utility.js";
 
-import chalk from "chalk";
 function parseVariableDeclaration(tokens, index, kind) {
   /*INPUT EXAMPLE -  ['let', 'num', '=','12',]
   /OUTPUT  - {
@@ -55,8 +54,6 @@ function parsePrintStatement(index, tokens) {
 
 function parseFunctionExpression(tokens, index) {
   //functionName, functionBody
-
-  console.log(chalk.blue("Parsing Function here:"));
 
   let functionName = tokens[index + 1];
 

@@ -1,0 +1,50 @@
+  runHelloWorldFn();
+  ${config["print"]}(num);
+  ${config["print"]}(hoisted);
+
+${config["let"]} num = 00;
+${config["const"]} arr = ["one","three", "ચાર"];
+${config["let"]} name = "rohan patel";
+${config["var"]} hoisted = "is it Undefined";
+
+${config["print"]}(666);
+${config["print"]}(arr);
+${config["print"]}(name);
+
+${config["function"]} runHelloWorldFn() {
+  ${config["print"]}("Hello world");
+
+  ${config["print"]}(arr);
+  ${config["print"]}(name);
+}
+
+${config["print"]}(hoisted);
+
+
+
+
+
+
+
+
+
+let num = 12
+let name = 'pablo pandey'
+const arr = [1,2,3,4]
+
+print(arr)
+
+print(666)
+print(arr)
+print('Hello from ParallelJs ')
+         
+
+     
+
+      config: {
+      let: "let",
+      const: "const",
+      var: "++++",
+      print: "||||||",
+      function: "function",
+    },

@@ -6,6 +6,13 @@ const ProviderContext = createContext();
 export const Provider = ({ children }) => {
   const [state, setState] = useState({
     loading: false,
+    config: {
+      let: "let",
+      const: "const",
+      var: "var",
+      print: "+++",
+      function: "function",
+    },
   });
 
   const update = (val, cb) => {

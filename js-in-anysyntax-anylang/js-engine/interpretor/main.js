@@ -1,4 +1,5 @@
-import chalk from "chalk";
+"use client";
+
 import { tokenize } from "../lexer/tokenizer.js";
 import { codeCleaner } from "../lexer/cleaners.js";
 import { Parse } from "../parser/main.js";
@@ -7,7 +8,7 @@ import { logMemory } from "../core/helpers.js";
 import { Memory } from "../core/memory.js";
 
 import { stringSanitizeforFinalOutput } from "../interpretor/helpers.js";
-function InterpretJs(sourcecode) {
+function InterpretJs(sourcecode, config, update) {
   //Step 1: Read Sourcecode using node fs module
 
   //Step 2: Cleaning the Sourcecode
@@ -16,20 +17,18 @@ function InterpretJs(sourcecode) {
 
   //ideal tokens array = [let, x, =, 10, const, y , = ,20]
   let tokens = tokenize(sourcecode);
-  console.log("tokens:", tokens);
+
   //Step 4: Parser(tokens) -> AST
 
-  let AST = Parse(tokens);
-  console.log("AST:", AST);
+  let AST = Parse(tokens, config);
 
   let output = [];
-  logMemory();
+
+  const { stack, heap } = logMemory();
 
   //loop over each ast node and interpret
 
-  console.log(chalk.red("Execution phase : Interpretation starts"));
-
-  function InterpretAST(AST) {
+  function InterpretAST(AST, config) {
     for (let i = 0; i < AST.length; i++) {
       //Read AST Node Data
       const currrentNode = AST[i];
@@ -48,7 +47,7 @@ function InterpretJs(sourcecode) {
           result = currrentNodeMetaData.value;
 
           //2nd phase memory - undefined -> actual value
-          Memory.write(currrentNodeMetaData, result);
+          Memory.write(currrentNodeMetaData, result, config);
 
           break;
 
@@ -58,7 +57,7 @@ function InterpretJs(sourcecode) {
           switch (currrentNodeMetaData.printType) {
             case "variable":
               // Give the variable name, get back the value from Heap
-              result = Memory.read(currrentNodeMetaData.toPrint[0]); //arr, name, str
+              result = Memory.read(currrentNodeMetaData.toPrint[0], config); //arr, name, str
 
               //
               output.push(result.value);
@@ -77,18 +76,15 @@ function InterpretJs(sourcecode) {
           break;
 
         case "FunctionCall":
-          console.log(chalk.cyan("We are execution a function Now"));
-
           //we need to execute function body
 
           let functionName = currrentNodeMetaData.functionName;
-          console.log("functionName:", functionName);
 
           //how do we read value from memory?
 
-          let functionBody = Memory.read(functionName);
+          let functionBody = Memory.read(functionName, config);
 
-          InterpretAST(functionBody.value);
+          InterpretAST(functionBody.value, config);
 
         default:
           console.log("Unknown NodeType", currrentNode);
@@ -96,11 +92,11 @@ function InterpretJs(sourcecode) {
     }
   }
 
-  InterpretAST(AST);
+  InterpretAST(AST, config);
 
-  logMemory();
+  const { endStack, endHeap } = logMemory();
 
-  return output;
+  return { output, tokens, AST, stack, heap, endStack, endHeap };
 }
 
 export default InterpretJs;

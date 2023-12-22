@@ -1,51 +1,81 @@
 "use client";
-import { updateConsumerState } from "@/Provider";
+
 import Editor from "@monaco-editor/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InterpretJs from "../../js-engine/interpretor/main";
+import { Memory } from "../../js-engine/core/memory";
 
-const defaultCode = `
+const EditorCode = ({ update, state }) => {
+  const [render, setrender] = useState(false);
 
-showValues()
-print(num)
+  const { config } = state;
 
-let num = 00000
-const arr = [1,2,3,4]
-let name = 'test'
+  const defaultCode = `
+  runHelloWorldFn()
+${config["print"]}(num)
+${config["print"]}(hoisted)
 
-print(666)
-print(arr)
-print(name)
+${config["let"]} num = 00
+${config["const"]} arr = [1,2,3,4,5]
+${config["let"]} namegj = "રોહન પટેલ"
+${config["let"]} name = "Rohan Patel"
+${config["var"]} hoisted = "is it Undefined"
 
- function showValues()
- {
+${config["print"]}(666)
+${config["print"]}(arr)
+${config["print"]}(hoisted)
+${config["print"]}(name)
+${config["print"]}(namegj)
 
- print('Hello')
 
-print(arr)
-print(name)
-    
- }    
+${config["function"]} runHelloWorldFn() {
+${config["print"]}("Hello world")
+${config["print"]}(arr)
+${config["print"]}(name)
+}
 `;
 
-const EditorCode = ({ update }) => {
+  useEffect(() => {
+    setrender(!render);
+  }, [state.modal]);
+
   const [text, settext] = useState(defaultCode);
+  const saveItems = (val) => {
+    console.log("🚀 ~ file: EditorCode.js:46 ~ saveItems ~ val:", val);
+    update({ ...val });
+  };
   const runCode = () => {
-    const outPut = InterpretJs(text);
-    console.log("🚀 ~ file: EditorCode.js:40 ~ runCode ~ outPut:", outPut);
-    update({ editorText: outPut?.join("\n") });
+    Memory.resetMemory();
+    update({
+      tokens: "",
+      ast: "",
+      stack: "",
+      heap: "",
+      endStack: "",
+      endHeap: "",
+    });
+    const { output, tokens, AST, stack, heap, endStack, endHeap } = InterpretJs(
+      text,
+      state?.config,
+      saveItems
+    );
+    update({
+      editorText: output?.join("\n"),
+      tokens,
+      ast: AST,
+      stack,
+      heap,
+      endStack,
+      endHeap,
+    });
   };
   const handleEditorChange = (value, event) => {
-    console.log(
-      "🚀 ~ file: EditorCode.js:12 ~ handleEditorChange ~ value:",
-      value
-    );
     settext(value);
   };
   return (
-    <div className="w-2/4">
+    <div className="w-full md:w-2/4">
       <div className="w-full">
-        <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-col items-center justify-between md:flex-row">
           <label
             htmlFor="message"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -87,14 +117,42 @@ const EditorCode = ({ update }) => {
           placeholder="Write your code here..."
           onChange={(e) => settext(e.target.value)}
         ></textarea> */}
-
-        <Editor
-          height={"90vh"}
-          defaultLanguage="javascript"
-          defaultValue={defaultCode}
-          onChange={handleEditorChange}
-          theme="vs-dark"
-        />
+        <div>
+          {state.modal && (
+            <Editor
+              height={"90vh"}
+              defaultLanguage="javascript"
+              defaultValue={defaultCode}
+              onChange={handleEditorChange}
+              theme="vs-dark"
+              options={{
+                cursorStyle: "line",
+              }}
+              onMount={(editor, monaco) => {
+                setTimeout(function () {
+                  editor.getAction("editor.action.formatDocument").run();
+                }, 300);
+              }}
+            />
+          )}
+          {!state.modal && (
+            <Editor
+              height={"90vh"}
+              defaultLanguage="javascript"
+              defaultValue={defaultCode}
+              onChange={handleEditorChange}
+              theme="vs-dark"
+              options={{
+                cursorStyle: "line",
+              }}
+              onMount={(editor, monaco) => {
+                setTimeout(function () {
+                  editor.getAction("editor.action.formatDocument").run();
+                }, 300);
+              }}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

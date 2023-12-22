@@ -1,3 +1,5 @@
+"use client";
+
 // Import necessary helper functions from helpers.js file
 import { getHeapValue, generateMemoryAddress } from "./helpers.js";
 
@@ -12,7 +14,7 @@ class MemoryImp {
   }
 
   // Step 2: Define the read method to read values from memory
-  read(nodeName) {
+  read(nodeName, config) {
     //3 cases of memorynode
 
     let memoryNode = this.stack.find((item) => item.name === nodeName);
@@ -26,7 +28,7 @@ class MemoryImp {
       //var,let,const
 
       error.value =
-        memoryNode.kind === "var"
+        memoryNode.kind === config["var"]
           ? "undefined"
           : `Reference Error: Cannot Access ${memoryNode.kind} before initialization`;
 
@@ -36,7 +38,7 @@ class MemoryImp {
     }
   }
 
-  write(node, newval) {
+  write(node, newval, config) {
     //node: { name: 'num', dataType: 'number', value: '12' }
     //multiple cases
     //1. this is a new entry
@@ -50,7 +52,7 @@ class MemoryImp {
     if (!memoryNode) {
       //method to create a new entry to memory
 
-      this._createMemoryNode(node);
+      this._createMemoryNode(node, config);
     } else {
       //method to update the value
 
@@ -58,10 +60,10 @@ class MemoryImp {
     }
   }
 
-  _createMemoryNode(node) {
+  _createMemoryNode(node, config) {
     let memoryNode = { ...node };
 
-    if (node.type === "function") {
+    if (node.type === config["function"]) {
       memoryNode.value = node.value;
 
       //stack - addresses
@@ -90,6 +92,11 @@ class MemoryImp {
     node.value = newval;
 
     this.heap.set(address, node);
+  }
+
+  resetMemory() {
+    this.stack = [];
+    this.heap.clear();
   }
 }
 
