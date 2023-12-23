@@ -22,6 +22,9 @@ export default function Home() {
           </>
         )}
       </Consumer>
+      <a href="https://www.linkedin.com/in/rohan-patel-%F0%9F%87%AE%F0%9F%87%B3-18a7091ab/">
+        Rohan Patel
+      </a>
     </main>
   );
 }
