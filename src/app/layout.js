@@ -5,8 +5,8 @@ import { Provider } from "@/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Js in any syntax any language",
-  description: "First ever Js in any syntax any language",
+  title: "Js in any syntax in any language",
+  description: "First ever Js in any syntax in any language",
 };
 
 export default function RootLayout({ children }) {
