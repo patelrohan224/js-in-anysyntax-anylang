@@ -16,7 +16,7 @@ export default function Home() {
               <Preview {...store} />
               <ConfigModal {...store} />
             </div>
-            <div>
+            <div className="w-full">
               <InsideView {...store} />
             </div>
           </>

@@ -53,7 +53,7 @@ const InsideView = ({ state, update }) => {
         </table>
       </div>
       Stack, Heap Memory
-      <div>
+      <div className="relative overflow-x-auto">
         <div className="flex flex-col md:flex-row md:w-full md:justify-around md:gap-5">
           <table className="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -112,7 +112,7 @@ const InsideView = ({ state, update }) => {
         </div>
       </div>
       Stack, Heap Memory - after assigment
-      <div>
+      <div className="relative overflow-x-auto">
         <div className="flex flex-col md:flex-row md:w-full md:justify-around md:gap-5">
           <table className="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

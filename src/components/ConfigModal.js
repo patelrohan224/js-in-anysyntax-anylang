@@ -60,7 +60,7 @@ const ConfigModal = ({ state, update }) => {
 
                 <div className="p-4 space-y-4 md:p-5">
                   <div className="flex flex-col mb-4 ">
-                    <div className="flex flex-row items-center justify-between gap-5">
+                    <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
                       <span className="w-14">let</span>
                       <input
                         type="text"
@@ -73,7 +73,7 @@ const ConfigModal = ({ state, update }) => {
                     </div>
                   </div>
                   <div className="flex flex-col mb-4 ">
-                    <div className="flex flex-row items-center justify-between gap-5">
+                    <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
                       <span className="w-14">var</span>
                       <input
                         type="text"
@@ -86,7 +86,7 @@ const ConfigModal = ({ state, update }) => {
                     </div>
                   </div>
                   <div className="flex flex-col mb-4 ">
-                    <div className="flex flex-row items-center justify-between gap-5">
+                    <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
                       <span className="w-14">const</span>
                       <input
                         type="text"
@@ -99,7 +99,7 @@ const ConfigModal = ({ state, update }) => {
                     </div>
                   </div>
                   <div className="flex flex-col mb-4">
-                    <div className="flex flex-row items-center justify-between gap-5">
+                    <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
                       <span className="w-14">print</span>
                       <input
                         type="text"
@@ -112,7 +112,7 @@ const ConfigModal = ({ state, update }) => {
                     </div>
                   </div>
                   <div className="flex flex-col mb-4">
-                    <div className="flex flex-row items-center justify-between gap-5">
+                    <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
                       <span className="w-14">function</span>
                       <input
                         type="text"
@@ -141,6 +141,7 @@ const ConfigModal = ({ state, update }) => {
                   >
                     Cancel
                   </button>
+                  <div className="ml-10 text-green-700">dont use spaces</div>
                 </div>
               </form>
             </div>
