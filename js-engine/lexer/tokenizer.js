@@ -3,6 +3,7 @@ function tokenize(code) {
   // const regex = /(\s+|\b|["']|\(|\))/g;
   const regex = /(\s+|\b|["']|\(|\)|\){)/g;
   const tokens = splitCodeUsingRegex(code, regex); // Split the code into tokens
+  console.log("🚀 ~ tokens:", tokens);
   const filteredTokens = filterEmptyTokens(tokens); // Remove empty tokens
   return filteredTokens;
 }

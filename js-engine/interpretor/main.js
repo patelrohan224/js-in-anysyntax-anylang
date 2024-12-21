@@ -16,15 +16,19 @@ function InterpretJs(sourcecode, config, update) {
   //Step 3: Tokenise source code
 
   //ideal tokens array = [let, x, =, 10, const, y , = ,20]
+  console.log("🚀 ~ InterpretJs ~ sourcecode:", sourcecode);
   let tokens = tokenize(sourcecode);
+  console.log("🚀 ~ InterpretJs ~ tokens:", tokens);
 
   //Step 4: Parser(tokens) -> AST
 
   let AST = Parse(tokens, config);
+  console.log("🚀 ~ InterpretJs ~ AST:", AST);
 
   let output = [];
 
   const { stack, heap } = logMemory();
+  console.log("🚀 ~ InterpretJs ~ stack, heap:", stack, heap);
 
   //loop over each ast node and interpret
 
@@ -95,6 +99,7 @@ function InterpretJs(sourcecode, config, update) {
   InterpretAST(AST, config);
 
   const { endStack, endHeap } = logMemory();
+  console.log("🚀 ~ InterpretJs ~ endStack, endHeap:", endStack, endHeap);
 
   return { output, tokens, AST, stack, heap, endStack, endHeap };
 }
